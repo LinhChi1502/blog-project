@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog detail</title>
+</head>
+<body>
+<h1 th:text="${blog.getTitle()}"></h1>
+<br>
+<span>Date: </span><span th:text="${#dates.format(blog.getDate())}"></span>
+<br>
+<br>
+<p><span>Category: </span><span th:text="${blog.getCategory().getCateName()}"></span></p>
+<br>
+<br>
+<img th:src="@{/static/__${blog.getImageURL()}__}" alt="img">
+<br>
+<p th:text="${blog.getText()}"></p>
+</body>
+</html>

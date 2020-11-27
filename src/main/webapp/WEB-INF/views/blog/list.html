@@ -5,6 +5,12 @@
     <title>Title</title>
 </head>
 <body>
+<form th:action="@{/blogs/search}">
+    <input type="text" name="s">
+    <input type="submit" value="Search">
+</form>
+
+<a href="/blogs/sort"><input type="button" value="Sort"></a>
 <a href="/blogs/create">Create new blog</a>
 
 <table border="1">
@@ -17,20 +23,24 @@
     </tr>
 
     <th:block th:each="blog: ${blogs}">
-<tr>
-    <td th:text="${blog.title}"></td>
-    <td><img th:src="@{/static/__${blog.imageURL}__}" width="50px" height="50px"></td>
-    <td th:text="${blog.text}"></td>
-    <td th:text="${blog.category.cateName}"></td>
-    <td th:text="${blog.date}" th:pattern="yyyy-MM-dd"></td>
-</tr>
+        <tr>
+            <td th:text="${blog.getTitle()}"></td>
+            <td><img th:src="@{/static/__${blog.getImageURL()}__}" width="50px" height="50px"></td>
+            <td><p th:text="${#strings.abbreviate(blog.text,20)}"></p></td>
+            <td th:text="${blog.getCategory().getCateName()}"></td>
+            <td th:text="${#dates.format(blog.getDate())}"></td>
+            <td><a th:href="@{/blogs/detail/__${blog.getId()}__}">detail</a></td>
+            <td><a th:href="@{/blogs/edit/__${blog.getId()}__}">edit</a></td>
+            <td><a th:href="@{/blogs/delete/__${blog.getId()}__}">delete</a></td>
+
+        </tr>
     </th:block>
 </table>
 
 <div>
     <a th:href="@{'/blogs'(page=${blogs.number - 1})}" th:if="${blogs.hasPrevious()}">Previous</a>
-    <span th:text="${blogs.number + 1}"></span>/ <span th:text="${blogs.totalPages}"></span>
-    <a th:href="@{'/blogs' (page=${blogs.number + 1})}" th:if="${blogs.hasNext()}">Next</a>
+    <span th:text="${blogs.number + 1}"></span>/<span th:text="${blogs.totalPages}"></span>
+    <a th:href="@{'/blogs'(page=${blogs.number + 1})}" th:if="${blogs.hasNext()}">Next</a>
 </div>
 </body>
 </html>

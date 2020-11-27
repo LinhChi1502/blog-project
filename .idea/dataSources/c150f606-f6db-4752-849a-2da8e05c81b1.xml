@@ -1171,7 +1171,7 @@ SELECT|sys.sys_config:null
     </column>
     <column id="353" parent="311" name="date">
       <Position>2</Position>
-      <DataType>date|0s</DataType>
+      <DataType>datetime|0s</DataType>
     </column>
     <column id="354" parent="311" name="imageURL">
       <Position>3</Position>

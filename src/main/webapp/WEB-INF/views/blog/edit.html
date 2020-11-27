@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EDIT BLOG</title>
+</head>
+<body>
+<form th:object="${blog}" method="post" enctype="multipart/form-data">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Title</td>
+            <td><input type="text" th:field="*{title}"></td>
+        </tr>
+
+        <tr>
+            <td>Category</td>
+            <td><select name="category">
+                <option th:each="c: ${categories}" th:value="${c.getId()}" th:text="${c.getCateName()}"
+                        th:selected="${c.getId()} == *{id}"></option>
+            </select></td>
+        </tr>
+
+        <tr>
+            <td>Date</td>
+            <td><input type="date" th:field="*{date}" th:text="${#dates.format(blog.getDate())}"></td>
+        </tr>
+
+        <tr>
+            <td>Image</td>
+            <td><img th:src="@{/static/__${blog.getImageURL()}__}" alt="img" width="50px" height="50px"></td>
+            <td><input type="file" th:field="*{image}"></td>
+            <td><input type="text" th:field="*{imageURL}" hidden></td>
+        </tr>
+
+        <tr>
+            <td>Text</td>
+            <td><textarea th:field="*{text}" cols="30" rows="10"></textarea></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Edit"></td>
+        </tr>
+
+
+    </table>
+</form>
+</body>
+</html>

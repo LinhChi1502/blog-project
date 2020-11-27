@@ -1,5 +1,6 @@
 package com.chinguyen.blogdemo.configuration;
 import com.chinguyen.blogdemo.formatter.CategoryFormatter;
+import com.chinguyen.blogdemo.log.Logger;
 import com.chinguyen.blogdemo.service.blog.BlogService;
 import com.chinguyen.blogdemo.service.blog.IBlogService;
 import com.chinguyen.blogdemo.service.category.CategoryService;
@@ -8,11 +9,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 //import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
@@ -47,6 +45,7 @@ import java.util.Properties;
 @EnableJpaRepositories("com.chinguyen.blogdemo.repository")
 @EnableSpringDataWebSupport
 //@PropertySource(value = {"classpath:db.properties"})
+@EnableAspectJAutoProxy
 
 public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     ApplicationContext applicationContext;
@@ -153,6 +152,10 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         return new PropertySourcesPlaceholderConfigurer();
     }
 
+    //region AOP
+
+    //endregion
+
     @Bean
     public IBlogService blogService() {
         return new BlogService();
@@ -161,5 +164,10 @@ public class AppConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Bean
     public ICategoryService categoryService() {
         return new CategoryService();
+    }
+
+    @Bean
+    public Logger logger() {
+        return new Logger();
     }
 }

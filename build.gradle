@@ -37,7 +37,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.16'
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
-
+    compile group: 'org.springframework', name: 'spring-aspects', version: '4.3.25.RELEASE'
 }
 
 test {
